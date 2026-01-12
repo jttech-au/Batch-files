@@ -1,4 +1,3 @@
-robocopy \\7267-FS01\d$ D:\ /S /ZB /256 /R:0 /W:0 /ETA /TEE /COPYALL /XF ~*.* Thumbs.db .DS_Store
-robocopy \\7267-FS01\e$ D:\ /S /ZB /256 /R:0 /W:0 /ETA /TEE /COPYALL /XF ~*.* Thumbs.db .DS_Store
-
-fix perms script required.
+REM fix perms script required.
+robocopy \\SERVER\d$ D:\ /S /ZB /256 /R:0 /W:0 /ETA /TEE /COPYALL /XF ~*.* Thumbs.db .DS_Store
+robocopy \\SERVER\e$ D:\ /S /ZB /256 /R:0 /W:0 /ETA /TEE /COPYALL /XF ~*.* Thumbs.db .DS_Store
