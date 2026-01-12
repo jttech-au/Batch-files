@@ -1,0 +1,11 @@
+Dism /Mount-Wim /WimFile:D:\Windows_CN_JP.WIM /index:1 /MountDir:D:\Temp
+
+reg load HKLM\test d:\temp\windows\system32\config\software
+
+regedit
+
+Changed to single drive
+
+reg unload HKLM\test
+
+DISM /UNMOUNT-WIM /MOUNTDIR:D:\Temp /COMMIT

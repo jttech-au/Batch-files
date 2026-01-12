@@ -1,0 +1,22 @@
+Dism /Online /Cleanup-Image /CheckHealth
+Dism /Online /Cleanup-Image /ScanHealth
+
+Dism /Online /Cleanup-Image /RestoreHealth
+
+Use below if /RestoreHealth doesn't work.
+
+WIM
+Dism /Online /Cleanup-Image /RestoreHealth (example /Source:wim:Full Path to install.wim file:1 <- note index number) /Source:wim:D:\windows10\source\install.wim:3 find index number (dism /get-wiminfo /wimfile:install.wim)
+OR
+(To prevent DISM from using Windows Update for online images)
+Dism /Online /Cleanup-Image /RestoreHealth /Source:wim:Full Path to install.wim file:1 /limitaccess
+
+ESD
+Dism /Online /Cleanup-Image /RestoreHealth /Source:esd:Full Path to install.esd file:1
+OR
+(To prevent DISM from using Windows Update for online images)
+Dism /Online /Cleanup-Image /RestoreHealth /Source:esd:Full Path to install.esd file:1 /limitaccess
+
+Cleanup Image
+dism /online /Cleanup-Image /StartComponentCleanup # will only clean up if the updated components are longer then 30 days installed on the system.
+dism /online /Cleanup-Image /StartComponentCleanup /ResetBase # deletes all superseded versions of every component in the component store.

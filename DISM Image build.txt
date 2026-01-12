@@ -1,0 +1,48 @@
+# Download latest retail build of Windows 10, https://www.microsoft.com/en-us/software-download/windows10 
+# Name ISO Windows_10_XXXX_64_Retail.iso
+# 
+# Optional Notes
+# Install Windows ADK, https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
+# Use the command prompt from the Windows Kits Menu.
+# pushd C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools
+# popd (once finished)
+# PowerShell
+# PS C:\Windows\system32> $env:path = "C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\DISM"
+# ﻿PS C:\Windows\system32> import-module "C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\DISM"
+
+install.esd to install.wim
+dism /get-wiminfo /wimfile:install.esd
+Index : 6
+Name : Windows 10 Pro
+Description : Windows 10 Pro
+Size : 14,604,257,035 bytes
+dism /export-image /SourceImageFile:install.esd /SourceIndex:6 /DestinationImageFile:install.wim /Compress:max /CheckIntegrity
+
+Add Drivers to install.wim
+dism /get-wiminfo /wimfile:install.wim
+dism /mount-wim /wimfile:install.wim /index:1 /mountdir:temp
+dism /image:temp /add-driver:Drivers /recurse
+dism /unmount-wim /mountdir:temp /commit
+
+Add Drivers to boot.wim (If required)
+dism /mount-wim /wimfile:boot.wim /index:2 /mountdir:temp
+dism /image:temp /add-driver:"E:\Dell\Intel Rapid Storage Technology Driver and Management Console\Drivers\Production\Windows10-x64" /recurse
+dism /unmount-wim /mountdir:temp /commit
+
+Add Packages
+# Download Cumulative Updates, https://support.microsoft.com/en-ca/help/4099479/windows-10-update-history
+dism /mount-wim /wimfile:install.wim /index:1 /mountdir:temp
+dism /image:temp /add-package /packagepath:e:\windows10.0-kb4469342-x64_7290815610ac4c3d657eb5ed6e4e92421fa8c29a.msu
+dism /unmount-wim /mountdir:temp /commit
+
+Split WIM File
+For UEFI Boot fat32
+dism /split-image /imagefile:install.wim /SWMFile:install.swm /filesize:2048
+Delete or move install.wim from Sources folder once finished.
+
+Name WIM
+imagex /info eduSTAR_SOE_v8.5_Windows_10_1803_x64.wim 1 "eduSTAR_SOE_v8.5_Windows_10_1803_x64" "Windows 10 1803 FOD en-GB en-AU"
+
+Create ISO
+
+oscdimg.exe -u2 -udfver102 -bootdata:2#p0,e,bC:\Win10_Pro_1809\boot\etfsboot.com#pEF,e,bC:\Win10_Pro_1809\efi\microsoft\boot\efisys.bin C:\Win10_Pro_1809 e:\Win10_x64_1809_Surface3_SurfacePro4_B118.iso

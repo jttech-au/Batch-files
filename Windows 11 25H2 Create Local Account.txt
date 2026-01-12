@@ -1,0 +1,2 @@
+Shift + F10 to open a Command Prompt window.
+Type the following command and press Enter: start ms-cxh://localonly

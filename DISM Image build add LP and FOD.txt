@@ -1,0 +1,68 @@
+# Add Language Pack and Features On Demand
+# Download multilanguage ISO for Windows 10 build
+# 
+# Windows 11 24H2
+# add to install.wim for windows verson
+# add to boot.wim /index:1
+
+# Windows install.wim
+dism /image:temp /add-package /packagepath:"C:\Wim\LP\Microsoft-Windows-Client-Language-Pack_x64_en-us.cab"
+dism /image:temp /add-package /packagepath:"C:\Wim\LP\Microsoft-Windows-LanguageFeatures-Basic-en-au-Package~31bf3856ad364e35~amd64~~.cab"
+dism /image:temp /add-package /packagepath:"C:\Wim\LP\Microsoft-Windows-LanguageFeatures-Basic-en-us-Package~31bf3856ad364e35~amd64~~.cab"
+dism /image:temp /add-package /packagepath:"C:\Wim\LP\Microsoft-Windows-LanguageFeatures-Handwriting-en-us-Package~31bf3856ad364e35~amd64~~.cab"
+dism /image:temp /add-package /packagepath:"C:\Wim\LP\Microsoft-Windows-LanguageFeatures-OCR-en-us-Package~31bf3856ad364e35~amd64~~.cab"
+dism /image:temp /add-package /packagepath:"C:\Wim\LP\Microsoft-Windows-LanguageFeatures-Speech-en-au-Package~31bf3856ad364e35~amd64~~.cab"
+dism /image:temp /add-package /packagepath:"C:\Wim\LP\Microsoft-Windows-LanguageFeatures-Speech-en-us-Package~31bf3856ad364e35~amd64~~.cab"
+dism /image:temp /add-package /packagepath:"C:\Wim\LP\Microsoft-Windows-LanguageFeatures-TextToSpeech-en-au-Package~31bf3856ad364e35~amd64~~.cab"
+dism /image:temp /add-package /packagepath:"C:\Wim\LP\Microsoft-Windows-LanguageFeatures-TextToSpeech-en-us-Package~31bf3856ad364e35~amd64~~.cab"
+
+#WinPE boot.wim
+dism /image:temp /add-package /packagepath:"C:\Wim\WinPE\en-us\lp.cab"
+#WinPE boot.wim index 2 only
+dism /image:temp /add-package /packagepath:"C:\Wim\WinPE\en-us\WinPE-Setup_en-us.cab" 
+dism /image:temp /add-package /packagepath:"C:\Wim\WinPE\en-us\WinPE-Setup-Client_en-us.cab"
+
+Dism /Image:temp /Set-UILang:en-US
+Dism /image:temp /Set-SysLocale:en-au
+Dism /image:temp /Set-UserLocale:en-au
+Dism /image:temp /Set-InputLocale:0409:00000409
+Dism /image:temp /Set-TimeZone:"AUS Eastern Standard Time"
+
+Dism /image:temp /Get-Intl
+
+Deployment Image Servicing and Management tool
+Version: 10.0.26100.5074
+
+Image Version: 10.0.26100.6584
+
+Reporting offline international settings.
+
+Default system UI language : en-US
+System locale : en-AU
+Default time zone : AUS Eastern Standard Time
+User locale for default user : en-AU
+Location : Australia (GEOID = 12)
+Active keyboard(s) : 0409:00000409
+Keyboard layered driver : PC/AT Enhanced Keyboard (101/102-Key)
+
+Installed language(s): en-GB
+  Type : Partially localized language, MUI type.
+  Fallback Languages en-US
+Installed language(s): en-US
+  Type : Fully localized language.
+
+
+####  
+# Change the default install language
+# boot.wim index 2
+dism /mount-wim /wimfile:boot.wim /index:2 /mountdir:temp
+Dism /image:temp /gen-langINI /distribution:temp
+Dism /image:temp /Set-SetupUILang:en-US /distribution:temp
+
+
+# Windows install.wim 
+Dism /Image:temp /Get-Packages /format:table
+Dism /Image:temp /Get-Capabilities /format:table | findstr /i "installed"
+Dism /Image:temp /Remove-Package /PackageName:Microsoft-Windows-LanguageFeatures-Basic-en-gb-Package~31bf3856ad364e35~amd64~~10.0.26100.6584 /PackageName:Microsoft-Windows-LanguageFeatures-OCR-en-gb-Package~31bf3856ad364e35~amd64~~10.0.26100.6584 /PackageName:Microsoft-Windows-LanguageFeatures-Speech-en-gb-Package~31bf3856ad364e35~amd64~~10.0.26100.6584 /PackageName:Microsoft-Windows-LanguageFeatures-TextToSpeech-en-gb-Package~31bf3856ad364e35~amd64~~10.0.26100.6584
+
+dism /unmount-wim /mountdir:temp /commit

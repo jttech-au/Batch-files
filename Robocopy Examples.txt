@@ -1,0 +1,44 @@
+robocopy "J:\Stuff" "D:\Users\USER\Desktop\Stuff" /S /V /ZB /PF /R:0 /W:0 /XF Thumbs.db Desktop.ini
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+set w=%date:~0,3%
+set d=%date:~4,2%
+set m=%date:~7,2%
+set y=%date:~10,4%
+set h=%time:~0,2%
+set min=%time:~3,2%
+
+robocopy \\SERVER\share$ "D:\Public Folders\Staff Public" /Z /MIR /PF /R:1 /w:1 /LOG:D:\DC01_to_FS01_Public_%d%-%m%-%y%_%h%-%min%.log
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+set w=%date:~0,3%
+set d=%date:~4,2%
+set m=%date:~7,2%
+set y=%date:~10,4%
+set h=%time:~0,2%
+set min=%time:~3,2%
+
+robocopy \\\SERVER\share$ "D:\Public Folders\Staff Public" /Z /MIR /PF /R:1 /w:1 /XD "\\fs001\RESOURCES\Media\Audio\Music" "\\fs001\RESOURCES\Media\Audio\Theme Songs" /LOG:D:\DC01_to_FS01_Public_%d%-%m%-%y%_%h%-%min%.log
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+set w=%date:~0,3%
+set d=%date:~4,2%
+set m=%date:~7,2%
+set y=%date:~10,4%
+set h=%time:~0,2%
+set min=%time:~3,2%
+
+
+robocopy \\SERVER\share$ "D:\Public Folders\Staff Public" /S /V /ZB /256 /R:0 /W:0 /ETA /TEE /COPY:DAT /XF ~*.* *.exe *.dll *.ocx Thumbs.db .DS_Store /XD ?i$ Desktop.ini /LOG:D:\DC01_to_FS01_Public_%d%-%m%-%y%_%h%-%min%.log
+
+robocopy u:\shared h:\shared /s /v /zb /pf /copyall
+
+robocopy "\\SERVER\d$" D:\ /ZB /MIR /SEC /SECFIX /V /R:1 /w:1 /XD "\\SERVER\d$\Virtual Machines"
+robocopy "\\SERVER\d$" D:\ /ZB /MIR /SEC /SECFIX /V /R:1 /w:1
+robocopy "\\SERVER\d$" D:\ /ZB /MIR /SEC /SECFIX /V /R:1 /w:1
+
+robocopy "\\SERVER\d$" D:\ /E /ZB /J /COPYALL /MON:1 /DCOPY:DAT /R:1 /W:1 /V /XD "System Volume Information" "$RECYCLE.BIN" /XF ~*.* *.tmp Thumbs.db .DS_Store *.ipa /LOG+:D:\robocopy_job.log

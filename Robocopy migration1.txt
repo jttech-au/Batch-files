@@ -1,0 +1,3 @@
+robocopy \\0427hv03\d$ D:\ /S /ZB /256 /R:0 /W:0 /ETA /TEE /COPYALL /PURGE /XF  pagefile.sys /xd "\\0427hv03\d$\Profiles" "\\0427hv03\d$\$RECYCLE.BIN" "\\0427hv03\d$\System Volume Information" *$RECYCLE.BIN* /LOG:D:\migration.log
+
+fix perms script required.

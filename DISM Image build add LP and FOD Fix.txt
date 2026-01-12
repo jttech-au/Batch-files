@@ -1,0 +1,59 @@
+#
+# Before
+# Install LP and FOD first.
+#
+Dism /Mount-Image /ImageFile:eduSTAR_SOE_v8.5_Windows_10_1803_FOD_en-GB_en-AU_x64.wim /index:1 /mountdir:temp
+Dism /image:temp /Get-Intl
+
+Deployment Image Servicing and Management tool
+Version: 10.0.17134.1
+
+Image Version: 10.0.17134.556
+
+Reporting offline international settings.
+
+Default system UI language : en-US
+System locale : en-AU
+Default time zone : AUS Eastern Standard Time
+User locale for default user : en-AU
+Location : Australia (GEOID = 12)
+Active keyboard(s) : 0409:00000409, 0c09:00000409
+Keyboard layered driver : Not installed.
+
+Installed language(s): en-GB
+  Type : Partially localized language, MUI type.
+  Fallback Languages en-US
+Installed language(s): en-US
+  Type : Fully localized language.
+
+
+Dism /image:temp /Set-UILang:en-GB
+Dism /image:temp /Set-InputLocale:0409:00000409
+Dism /unmount-wim /mountdir:temp /commit
+
+#
+# After
+#
+Dism /image:temp /Get-Intl
+
+Deployment Image Servicing and Management tool
+Version: 10.0.17134.1
+
+Image Version: 10.0.17134.556
+
+Reporting offline international settings.
+
+Default system UI language : en-GB
+The UI language fallback is : en-US
+System locale : en-AU
+Default time zone : AUS Eastern Standard Time
+User locale for default user : en-AU
+Location : Australia (GEOID = 12)
+Active keyboard(s) : 0409:00000409
+Keyboard layered driver : Not installed.
+
+Installed language(s): en-GB
+  Type : Partially localized language, MUI type.
+  Fallback Languages en-US
+Installed language(s): en-US
+  Type : Fully localized language.

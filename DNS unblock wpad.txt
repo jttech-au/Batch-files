@@ -1,0 +1,2 @@
+dnscmd /config /enableglobalqueryblocklist 0
+dnscmd /info /enableglobalqueryblocklist
