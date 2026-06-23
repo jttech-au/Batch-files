@@ -1,4 +1,4 @@
-robocopy "J:\Stuff" "D:\Users\USER\Desktop\Stuff" /S /V /ZB /PF /R:0 /W:0 /XF Thumbs.db Desktop.ini
+robocopy "X:\Stuff" "D:\Users\USER\Desktop\Stuff" /S /V /ZB /PF /R:0 /W:0 /XF Thumbs.db Desktop.ini
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
 

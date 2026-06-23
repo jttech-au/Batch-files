@@ -8,7 +8,7 @@
 # popd (once finished)
 # PowerShell
 # PS C:\Windows\system32> $env:path = "C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\DISM"
-# ﻿PS C:\Windows\system32> import-module "C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\DISM"
+# PS C:\Windows\system32> import-module "C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\DISM"
 
 install.esd to install.wim
 dism /get-wiminfo /wimfile:install.esd
